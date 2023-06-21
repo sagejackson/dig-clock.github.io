@@ -4,12 +4,14 @@
   <meta charset = "UTF-8">  
   <meta name = "viewport" content = "width=device-width, initial-scale=1.0">  
   <meta http-equiv = "X-UA-Compatible" content = "ie=edge">  
-  <title> CMSC 437 - HW1 </title>  
-</head>
+  <title> CMSC437 - HW1 </title>  
+</head>  
 <style>  
-body {text-align: center;}  
+body {  
+text-align: center;  
+}  
 a {  
-    outline: none;
+    outline: none;  
     color: #389dc1;  
 }  
 a:visited {  
@@ -62,7 +64,10 @@ section, footer, header, aside {
 }  
 #clock.light .digits div.dots:after {  
     background-color: #272e38;  
-}   
+}  
+#clock.light .alarm {  
+    background:url('../img/alarm_light.jpg');  
+}  
 #clock.light .display {  
     background-color: #dddddd;  
     box-shadow: 0 1px 1px rgba(0,0,0,0.08) inset, 0 1px 1px #fafafa;  
@@ -300,13 +305,24 @@ bottom: -5px; }
 #clock .digits div.dots:after {  
     top: 34px;  
 }  
-
+#clock .alarm {  
+    width: 16px;  
+    height: 16px;  
+    bottom: 20px;  
+    background: url('../img/alarm_light.jpg');  
+    position: absolute;  
+    opacity: 0.2;  
+}  
+#clock .alarm.active {  
+    opacity: 1;  
+}  
 #clock .ampm {  
     position: absolute;  
     bottom: 20px;  
     right: 20px;  
     font-size: 12px;  
 }  
+
 footer {  
     width: 770px;  
     font: normal 16px Arial, Helvetica, sans-serif;  
@@ -397,19 +413,18 @@ footer #tzine-actions iframe {
 </style>  
 <body>  
 <h1> Sage Jackson </h1>  
-<h2> CMSC437 - Digital Clock </h2>  
+<h2> CMSC 537 - HW1 </h2>  
 <div id = "clock" class = "light">  
-            <div class = "display">    
-                <div class = "ampm"> </div>    
+            <div class = "display">  
+                <div class = "ampm"> </div>  
+                <div class = "alarm"> </div>  
                 <div class = "digits"> </div>  
             </div>  
         </div>  
-        <div class = "button-holder">  
-            <a class = "button"> Switch Theme </a>  
-        </div>  
 <script>  
 $(function() {  
-    var clock = $('#clock'),   
+    var clock = $('#clock'),  
+        alarm = clock.find('.alarm'),  
         ampm = clock.find('.ampm');  
         var digit_to_name = 'zero one two three four five six seven eight nine'.split(' ');  
     var digits = {};  
@@ -437,13 +452,11 @@ $(function() {
         digits.m1.attr('class', digit_to_name[now[2]]);  
         digits.m2.attr('class', digit_to_name[now[3]]);  
         digits.s1.attr('class', digit_to_name[now[4]]);  
-        digits.s2.attr('class', digit_to_name[now[5]]);     
+        digits.s2.attr('class', digit_to_name[now[5]]);   
         ampm.text(now[7]+now[8]);  
         setTimeout(update_time, 1000);  
     })();  
-    $('a.button').click(function() {  
-        clock.toggleClass('light dark');  
-    });  
+ 
 });  
 </script>  
 </body>  
