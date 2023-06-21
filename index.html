@@ -1,10 +1,10 @@
-<!-- This example shows we update the time on the page
-    in reall time using the function requestAnimationFrame(...) -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>CLOCK</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
         <style>
           body {
           	margin: 0;
@@ -186,6 +186,9 @@
         		</svg>
         	</div>
         </div>
+        <script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
+        </script>
         <script>
             function changeTime() {
           	var hour = moment().format("HH");
