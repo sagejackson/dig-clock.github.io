@@ -4,10 +4,8 @@
   <meta charset = "UTF-8">  
   <meta name = "viewport" content = "width=device-width, initial-scale=1.0">  
   <meta http-equiv = "X-UA-Compatible" content = "ie=edge">  
-  <title> CMSC 437 - HW1  
- </title>  
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"> </script>  
-        <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"> </script>   
+  <title> CMSC 437 - HW1 </title>  
+</head>
 <style>  
 body {text-align: center;}  
 a {  
@@ -64,37 +62,10 @@ section, footer, header, aside {
 }  
 #clock.light .digits div.dots:after {  
     background-color: #272e38;  
-}  
-#clock.light .alarm {  
-    background:url('../img/alarm_light.jpg');  
-}  
+}   
 #clock.light .display {  
     background-color: #dddddd;  
     box-shadow: 0 1px 1px rgba(0,0,0,0.08) inset, 0 1px 1px #fafafa;  
-}  
-#clock.dark {  
-    background-color: #272e38;  
-    color: #cacaca;  
-}  
-#clock.dark:after {  
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);  
-}  
-#clock.dark .digits div span {  
-    background-color: #cacaca;  
-    border-color: #cacaca;    
-}  
-#clock.dark .alarm {  
-    background:url('../img/alarm_dark.jpg');  
-}  
-#clock.dark .display {  
-    background-color: #0f1620;  
-    box-shadow: 0 1px 1px rgba(0,0,0,0.08) inset, 0 1px 1px #2d3642;  
-}  
-#clock.dark .digits div.dots:before {  
-    background-color: #cacaca;  
-}  
-#clock.dark .digits div.dots:after {  
-    background-color: #cacaca;  
 }  
 #clock .digits div {  
     text-align: left;  
@@ -329,17 +300,7 @@ bottom: -5px; }
 #clock .digits div.dots:after {  
     top: 34px;  
 }  
-#clock .alarm {  
-    width: 16px;  
-    height: 16px;  
-    bottom: 20px;  
-    background: url('../img/alarm_light.jpg');  
-    position: absolute;  
-    opacity: 0.2;  
-}  
-#clock .alarm.active {  
-    opacity: 1;  
-}  
+
 #clock .ampm {  
     position: absolute;  
     bottom: 20px;  
@@ -439,8 +400,7 @@ footer #tzine-actions iframe {
 <h2> CMSC437 - Digital Clock </h2>  
 <div id = "clock" class = "light">  
             <div class = "display">    
-                <div class = "ampm"> </div>  
-                <div class = "alarm"> </div>  
+                <div class = "ampm"> </div>    
                 <div class = "digits"> </div>  
             </div>  
         </div>  
@@ -449,8 +409,7 @@ footer #tzine-actions iframe {
         </div>  
 <script>  
 $(function() {  
-    var clock = $('#clock'),  
-        alarm = clock.find('.alarm'),  
+    var clock = $('#clock'),   
         ampm = clock.find('.ampm');  
         var digit_to_name = 'zero one two three four five six seven eight nine'.split(' ');  
     var digits = {};  
@@ -478,8 +437,7 @@ $(function() {
         digits.m1.attr('class', digit_to_name[now[2]]);  
         digits.m2.attr('class', digit_to_name[now[3]]);  
         digits.s1.attr('class', digit_to_name[now[4]]);  
-        digits.s2.attr('class', digit_to_name[now[5]]);  
-         var dow = now[6];   
+        digits.s2.attr('class', digit_to_name[now[5]]);     
         ampm.text(now[7]+now[8]);  
         setTimeout(update_time, 1000);  
     })();  
