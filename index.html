@@ -4,16 +4,14 @@
   <meta charset = "UTF-8">  
   <meta name = "viewport" content = "width=device-width, initial-scale=1.0">  
   <meta http-equiv = "X-UA-Compatible" content = "ie=edge">  
-  <title> How to display a digital clock using HTML, CSS and JavaScript?  
+  <title> CMSC 437 - HW1  
  </title>  
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"> </script>  
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"> </script>   
 <style>  
-body {  
-text-align: center;  
-}  
+body {text-align: center;}  
 a {  
-    outline: none;  
+    outline: none;
     color: #389dc1;  
 }  
 a:visited {  
@@ -342,47 +340,11 @@ bottom: -5px; }
 #clock .alarm.active {  
     opacity: 1;  
 }  
-#clock .weekdays {  
-    font-size: 12px;  
-    position: absolute;  
-    width: 100%;  
-    top: 10px;  
-    left: 0;  
-    text-align: center;  
-}  
-#clock .weekdays span {  
-    opacity: 0.2;  
-    padding: 0 10px;  
-}  
-#clock .weekdays span.active {  
-    opacity: 1;  
-}  
 #clock .ampm {  
     position: absolute;  
     bottom: 20px;  
     right: 20px;  
     font-size: 12px;  
-}  
-.button-holder {  
-    text-align: center;  
-    padding-bottom: 100px;  
-}  
-a.button {  
-    background-color: #f6a7b3;  
-    background-image: -webkit-linear-gradient(top, #f6a7b3, #f0a3af);  
-    background-image: -moz-linear-gradient(top, #f6a7b3, #f0a3af);  
-    background-image: linear-gradient(top, #f6a7b3, #f0a3af);  
-    border: 1px solid #eb9ba7;  
-    border-radius: 2px;  
-    box-shadow: 0 2px 2px #ccc;  
-    color: #fff;  
-    text-decoration: none !important;  
-    padding: 15px 20px;  
-    display: inline-block;  
-    cursor: pointer;  
-}  
-a.button:hover {  
-    opacity: 0.9;  
 }  
 footer {  
     width: 770px;  
@@ -473,11 +435,10 @@ footer #tzine-actions iframe {
 }  
 </style>  
 <body>  
-<h1> Example </h1>  
-<h2> How to display a digital clock using HTML, CSS and JavaScript? </h2>  
+<h1> Sage Jackson </h1>  
+<h2> CMSC437 - Digital Clock </h2>  
 <div id = "clock" class = "light">  
-            <div class = "display">  
-                <div class = "weekdays"> </div>  
+            <div class = "display">    
                 <div class = "ampm"> </div>  
                 <div class = "alarm"> </div>  
                 <div class = "digits"> </div>  
@@ -509,13 +470,7 @@ $(function() {
             digits[this] = pos;  
             digit_holder.append(pos);  
         }  
-    });  
-    var weekday_names = 'MON TUE WED THU FRI SAT SUN'.split(' '),  
-        weekday_holder = clock.find('.weekdays');  
-    $.each(weekday_names, function() {  
-        weekday_holder.append('<span>' + this + '</span>');  
-    });  
-    var weekdays = clock.find('.weekdays span');  
+    });    
     (function update_time() {  
         var now = moment().format("hhmmssdA");  
         digits.h1.attr('class', digit_to_name[now[0]]);  
@@ -524,11 +479,7 @@ $(function() {
         digits.m2.attr('class', digit_to_name[now[3]]);  
         digits.s1.attr('class', digit_to_name[now[4]]);  
         digits.s2.attr('class', digit_to_name[now[5]]);  
-         var dow = now[6];  
-        dow--;  
-        if(dow < 0) {  
-            dow = 6;  
-        }    weekdays.removeClass('active').eq(dow).addClass('active');  
+         var dow = now[6];   
         ampm.text(now[7]+now[8]);  
         setTimeout(update_time, 1000);  
     })();  
