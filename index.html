@@ -1,35 +1,102 @@
-<!-- This example shows we update the time on the page
-    in reall time using the function requestAnimationFrame(...) -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>CLOCK</title>
-        <style>
-            #clock{
-                font-size: 10em;
-                color: #FF0000;
-                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-                margin: 0;
-            	padding: 0;
-            	height: 100vh;
-            	display: flex;
-            	justify-content: center;
-            	align-items: center;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="clock"></div>
-        <script>
-            const div = document.getElementById("clock");
-            function clock(){
-                const now = new Date();
-                div.innerHTML = now.toLocaleTimeString();
-                window.requestAnimationFrame(clock);
-            }
-            window.requestAnimationFrame(clock);
-            //clock();
-        </script>
-    </body>
+<head>
+  <title>7-Segment Display</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="display" width="200" height="400"></canvas>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const canvas = document.getElementById('display');
+      const context = canvas.getContext('2d');
+
+      const segments = [
+        [1, 1, 1, 1, 1, 1, 0], // 0
+        [0, 1, 1, 0, 0, 0, 0], // 1
+        [1, 1, 0, 1, 1, 0, 1], // 2
+        [1, 1, 1, 1, 0, 0, 1], // 3
+        [0, 1, 1, 0, 0, 1, 1], // 4
+        [1, 0, 1, 1, 0, 1, 1], // 5
+        [1, 0, 1, 1, 1, 1, 1], // 6
+        [1, 1, 1, 0, 0, 0, 0], // 7
+        [1, 1, 1, 1, 1, 1, 1], // 8
+        [1, 1, 1, 1, 0, 1, 1]  // 9
+      ];
+
+      const drawSegment = (x, y, width, height) => {
+        context.fillRect(x, y, width, height);
+      };
+
+      const drawDigit = (digit, x, y, size) => {
+        const segmentsToDraw = segments[digit];
+        const segmentWidth = size / 3;
+        const segmentHeight = size / 10;
+
+        // Segment A
+        if (segmentsToDraw[0]) {
+          drawSegment(x + segmentWidth, y, segmentWidth, segmentHeight);
+        }
+
+        // Segment B
+        if (segmentsToDraw[1]) {
+          drawSegment(x + segmentWidth * 2, y + segmentHeight, segmentHeight, segmentWidth);
+        }
+
+        // Segment C
+        if (segmentsToDraw[2]) {
+          drawSegment(x + segmentWidth * 2, y + segmentHeight * 2, segmentHeight, segmentWidth);
+        }
+
+        // Segment D
+        if (segmentsToDraw[3]) {
+          drawSegment(x + segmentWidth, y + segmentHeight * 3, segmentWidth, segmentHeight);
+        }
+
+        // Segment E
+        if (segmentsToDraw[4]) {
+          drawSegment(x, y + segmentHeight * 2, segmentHeight, segmentWidth);
+        }
+
+        // Segment F
+        if (segmentsToDraw[5]) {
+          drawSegment(x, y + segmentHeight, segmentHeight, segmentWidth);
+        }
+
+        // Segment G
+        if (segmentsToDraw[6]) {
+          drawSegment(x + segmentWidth, y + segmentHeight, segmentWidth, segmentHeight);
+        }
+      };
+
+      const drawNumber = (number, size) => {
+        const digitWidth = size / 2.5;
+        const digitHeight = size;
+
+        const digits = number.toString().padStart(2, '0');
+
+        const totalWidth = digitWidth * digits.length;
+        const x = (canvas.width - totalWidth) / 2;
+        const y = (canvas.height - digitHeight) / 2;
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = 'red';
+
+        for (let i = 0; i < digits.length; i++) {
+          const digit = parseInt(digits[i]);
+          drawDigit(digit, x + digitWidth * i, y, size);
+        }
+      };
+
+      drawNumber(0, canvas.width / 2);
+
+      // Example usage: drawNumber(123, 150);
+    });
+  </script>
+</body>
 </html>
