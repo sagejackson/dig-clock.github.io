@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>7-Segment Display</title>
+  <title>7-Segment Digital Clock</title>
   <style>
     canvas {
       border: 1px solid black;
@@ -74,17 +74,12 @@
         }
       };
 
-      const drawNumber = (number, size) => {
+      const drawNumber = (number, x, y, size) => {
         const digitWidth = size / 2.5;
         const digitHeight = size;
 
         const digits = number.toString().padStart(2, '0');
 
-        const totalWidth = digitWidth * digits.length;
-        const x = (canvas.width - totalWidth) / 2;
-        const y = (canvas.height - digitHeight) / 2;
-
-        context.clearRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = 'red';
 
         for (let i = 0; i < digits.length; i++) {
@@ -93,9 +88,26 @@
         }
       };
 
-      drawNumber(0, canvas.width / 2);
+      const updateClock = () => {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
 
-      // Example usage: drawNumber(123, 150);
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+
+        const displaySize = Math.min(canvasWidth / 2, canvasHeight) - 20;
+        const displayX = (canvasWidth - displaySize) / 2;
+        const displayY = (canvasHeight - displaySize) / 2;
+
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        drawNumber(hours, displayX, displayY, displaySize / 2);
+        drawNumber(minutes, displayX + displaySize / 2, displayY, displaySize / 2);
+        drawNumber(seconds, displayX + displaySize, displayY, displaySize / 2);
+      };
+
+      setInterval(updateClock, 1000);
     });
   </script>
 </body>
