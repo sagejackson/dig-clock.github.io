@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>7-Segment Digital Clock</title>
+  <title>7-Segment Display</title>
   <style>
     canvas {
       border: 1px solid black;
@@ -9,7 +9,7 @@
   </style>
 </head>
 <body>
-  <canvas id="display" width="200" height="400"></canvas>
+  <canvas id="display"></canvas>
 
   <script>
     window.addEventListener('DOMContentLoaded', (event) => {
@@ -80,11 +80,16 @@
 
         const digits = number.toString().padStart(2, '0');
 
+        const totalWidth = digitWidth * digits.length;
+        const displayX = x - totalWidth / 2;
+        const displayY = y - digitHeight / 2;
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = 'red';
 
         for (let i = 0; i < digits.length; i++) {
           const digit = parseInt(digits[i]);
-          drawDigit(digit, x + digitWidth * i, y, size);
+          drawDigit(digit, displayX + digitWidth * i, displayY, size);
         }
       };
 
@@ -94,17 +99,19 @@
         const minutes = now.getMinutes();
         const seconds = now.getSeconds();
 
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
+        const canvasWidth = canvas.offsetWidth;
+        const canvasHeight = canvas.offsetWidth * 2;
+
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
 
         const displaySize = Math.min(canvasWidth / 2, canvasHeight) - 20;
-        const displayX = (canvasWidth - displaySize) / 2;
-        const displayY = (canvasHeight - displaySize) / 2;
+        const displayX = canvasWidth / 2;
+        const displayY = canvasHeight / 2;
 
-        context.clearRect(0, 0, canvasWidth, canvasHeight);
-        drawNumber(hours, displayX, displayY, displaySize / 2);
-        drawNumber(minutes, displayX + displaySize / 2, displayY, displaySize / 2);
-        drawNumber(seconds, displayX + displaySize, displayY, displaySize / 2);
+        drawNumber(hours, displayX - displaySize * 1.5, displayY, displaySize);
+        drawNumber(minutes, displayX - displaySize / 2, displayY, displaySize);
+        drawNumber(seconds, displayX + displaySize / 2, displayY, displaySize);
       };
 
       setInterval(updateClock, 1000);
